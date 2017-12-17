@@ -1,2 +1,0 @@
-# Arduino
-Apogee-18
