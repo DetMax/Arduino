@@ -20,7 +20,10 @@ void loop() {
   dataFile = SD.open("data.txt",FILE_WRITE);
   if(dataFile){
     Serial.println("File opened. Writing data.");
-    dataFile.println("Temperature : "+temperature+" Humidity : "+humidity);
+    dataFile.print("Temperature : ");
+    dataFile.print(temperature);
+    dataFile.print(" Humidity : ");
+    dataFile.println(humidity);
     Serial.println("Data written.");
     dataFile.close();
   }
