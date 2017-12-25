@@ -1,3 +1,5 @@
+#include <SPI.h>
+#include <SD.h>
 void setup() {
   Serial.begin(9600);
   while(!Serial){
@@ -8,8 +10,7 @@ void setup() {
   if(!SD.begin(10)){
     Serial.println("SD card initialisation failed.");
   }
-  Serial.println("SD card initialised.");
-  dataFile = SD.open("data.txt",FILE_READ);
+File  dataFile = SD.open("data.txt",FILE_READ);
   if(dataFile){
     Serial.println("Data file found and opened.");
     Serial.println("Its contents are :");
