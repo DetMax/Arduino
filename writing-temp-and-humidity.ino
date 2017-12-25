@@ -1,5 +1,7 @@
 #include <SPI.h>
 #include <SD.h>
+#include<dht.h>
+dht DHT;
 
 void setup() {
   Serial.begin(9600);
@@ -14,14 +16,20 @@ void setup() {
   Serial.println("SD card initialised.");
 }
 
-void loop() {
-  //place code here for reading data
-  //assuming temperature is stored in variable 'temperature' and humidity is stored in variable 'humidity'
-  dataFile = SD.open("data.txt",FILE_WRITE);
+void loop() 
+{
+int chk = DHT.read11(3);
+Serial.print("Humidity: " );
+Serial.println(DHT.humidity, 1);
+Serial.print("Temparature: ");
+Serial.println(DHT.temperature, 1);
+int temp = DHT.temperature;
+int humidity = DHT.humidity;
+File dataFile = SD.open("data.txt",FILE_WRITE);
   if(dataFile){
     Serial.println("File opened. Writing data.");
     dataFile.print("Temperature : ");
-    dataFile.print(temperature);
+    dataFile.print(temp);
     dataFile.print(" Humidity : ");
     dataFile.println(humidity);
     Serial.println("Data written.");
@@ -30,5 +38,5 @@ void loop() {
   else {
     Serial.println("Error opening data file.");
   }
-  //insert delay statement here accordingly
+  delay(2000);
 }
