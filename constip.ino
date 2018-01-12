@@ -54,9 +54,7 @@ void setup() {
   Serial.println(".69");
   // config static IP
   IPAddress ip(first.toInt(), second.toInt(), third.toInt(), 69); // where xx is the desired IP Address
-  IPAddress gateway(192, 168, 1, 1); // set gateway to match your network
-  Serial.print(F("Setting static ip to : "));
-  Serial.println(ip);
+  IPAddress gateway(first, second, third, 1); // set gateway to match your network
   IPAddress subnet(255, 255, 255, 0); // set subnet mask to match your network
   WiFi.config(ip, gateway, subnet);
   Serial.println("IP changed!\nNew IP: ");
