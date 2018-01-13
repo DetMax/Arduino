@@ -1,10 +1,10 @@
 #include <ESP8266WiFi.h>
  
-const char* ssid = "AndroidAP";//type your ssid
-const char* password = "12345678";//type your password
+const char* ssid = "AndroidAP";
+const char* password = "12345678";
  
-int ledPin = 2; // GPIO2 of ESP8266
-WiFiServer server(80);//Service Port
+int ledPin = 2; 
+WiFiServer server(80);
  
 void setup() {
   Serial.begin(9600);
@@ -18,9 +18,9 @@ void setup() {
   while (WiFi.status() != WL_CONNECTED) {
     delay(500);
   }
-  // Start the server
+  
   server.begin();
-  // Print the IP address
+ 
   IPAddress ourlocalIPa = WiFi.localIP();
   String ourlocalIP = ourlocalIPa.toString();
   int temp = ourlocalIP.indexOf('.');
@@ -30,14 +30,14 @@ void setup() {
   int temp3 = ourlocalIP.indexOf('.', temp2+1);
   String third = ourlocalIP.substring(temp2+1, temp3);
   // config static IP
-  IPAddress ip(first.toInt(), second.toInt(), third.toInt(), 69); // where xx is the desired IP Address
-  IPAddress gateway(first.toInt(), second.toInt(), third.toInt(), 1); // set gateway to match your network
-  IPAddress subnet(255, 255, 255, 0); // set subnet mask to match your network
+  IPAddress ip(first.toInt(), second.toInt(), third.toInt(), 69); 
+  IPAddress gateway(first.toInt(), second.toInt(), third.toInt(), 1); 
+  IPAddress subnet(255, 255, 255, 0); 
   WiFi.config(ip, gateway, subnet);
 }
  
 void loop() {
-  // Check if a client has connected
+ 
   WiFiClient client = server.available();
   if (!client) {
     return;
@@ -67,16 +67,9 @@ void loop() {
   while(!client.available()){
     delay(1);
   }
-
-
-  
  
-  // Read the first line of the request
   String request = client.readString();
   Serial.println(request);
-
-  
- 
   
   if (request.indexOf("/LED=ON") != -1) {
     digitalWrite(ledPin, HIGH);
