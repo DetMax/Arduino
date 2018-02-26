@@ -1,7 +1,7 @@
-#include <ESP8266WiFi.h>
+ #include <ESP8266WiFi.h>
 
-const char* ssid = "Gasolina";       //WiFi SSID
-const char* password = "DameMaGasolina";    //WiFi Password
+const char* ssid = "Pollution";       //WiFi SSID
+const char* password = "DefaultPassword";    //WiFi Password
 
 WiFiServer server(80);                //service port
 
@@ -39,13 +39,19 @@ void loop() {
   while(!client.available()){       //wait until client sends some data
     delay(1);
   }
-  char request = client.read();
-  Serial.println(request);
+  delay(1000);
+  while(client.available()){
+    Serial.write(client.read());
+  }
   while(!Serial.available()){      //wait until arduino sends back response
     delay(1);
   }
-  String response = Serial.readStringUntil('\r');
-  client.println(response);
+  delay(1000);
+  while(Serial.available()){
+    client.write(Serial.read());
+  }
+  //String response = Serial.readStringUntil('\r');
+  //client.println(response);
   client.flush();
   delay(1);
 }
